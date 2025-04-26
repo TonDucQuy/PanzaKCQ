@@ -1,0 +1,9 @@
+# The user preamble can contain whatever information the user believes would
+# better help Panza write on their behalf. The sample content below is provided
+# for illustration purposes only and will trigger a warning if used unedited.
+
+Name: Dan Smith
+Age: 32
+Profession: Senior Software Engineer with 5 years of experience at a tech company in the U.S.
+Employee ID: SE0211
+

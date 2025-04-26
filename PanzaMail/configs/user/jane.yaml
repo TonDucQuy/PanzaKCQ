@@ -1,0 +1,9 @@
+email_address: "jane_anonymous@gmail.com"  
+username: "jane_anonymous" 
+
+data_dir: ${panza_workspace}/data
+
+system_preamble_path: ${panza_workspace}/prompt_preambles/system_preamble.txt
+user_preamble_path: ${panza_workspace}/prompt_preambles/jane_preamble.txt
+rag_preamble_path: ${panza_workspace}/prompt_preambles/rag_preamble.txt
+thread_preamble_path: ${panza_workspace}/prompt_preambles/thread_preamble.txt

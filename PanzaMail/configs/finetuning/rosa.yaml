@@ -1,0 +1,42 @@
+defaults:
+  - base
+
+max_duration: 5ep
+lr: 1e-5
+batch_size: 8
+eval_interval: 1
+seed: ${seed}
+num_cpu_threads: 1
+
+
+model_name_or_path: "microsoft/Phi-3-mini-4k-instruct"
+save_merged_model: false
+
+
+train_dataset:
+  name: json
+  split: train
+  data_files: /teamspace/studios/this_studio/PanzaMail/data/train.jsonl 
+  local: true
+
+rosa:
+  lora_lr: ${finetuning.lr}
+  lora_r: 8
+  spa_d: 0.01
+  lora_alpha: 16
+  target_modules: 'all-linear'
+  lora_dropout: 0.05
+  impl: auto
+  spa_store_transpose: true
+  rosa_dtype: bf16
+  spa_num_grads: 1
+  grad_acc_mode: mean_squared
+  mask_load_path: null           
+  mask_save_path: ./masks/      
+  terminate_after_mask_generation: false
+  schedule: default           
+  masks_only: true              
+
+
+scheduler:
+  t_warmup: 8ba

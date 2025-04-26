@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+
+
+<html lang="Python" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MAUVE: Measuring the Gap Between Neural Text and Human Text &#8212; MAUVE</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=d35fbb86"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="Python"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">MAUVE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mauve-measuring-the-gap-between-neural-text-and-human-text">
+<h1>MAUVE: Measuring the Gap Between Neural Text and Human Text<a class="headerlink" href="#mauve-measuring-the-gap-between-neural-text-and-human-text" title="Link to this heading">#</a></h1>
+<p>This is a library built on PyTorch and HuggingFace Transformers to measure the gap between
+neural text and human text with the MAUVE measure, introduced in
+<a class="reference external" href="https://arxiv.org/pdf/2102.01454.pdf">this NeurIPS 2021 paper</a> (Outstanding Paper Award) and a deeper dive in <a class="reference external" href="https://arxiv.org/pdf/2212.14578.pdf">this JMLR 2023 paper</a>.</p>
+<p>MAUVE is obtained by computing Kullback–Leibler (KL) divergences between the two distributions in a quantized embedding space of a foundation model.</p>
+<p>In the text setting, it is natural to use embeddings from a pretrained large language model. It can quantify differences in the quality of generated text based on the size of the model, the decoding algorithm, and the length of the generated text. MAUVE was found to correlate the strongest with human evaluations over baseline metrics for open-ended text generation.</p>
+<p>MAUVE can work with other modalities such as images, speech, music, or video, as long as domain-appropriate embeddings are obtained. Our API supports directly passing in such embeddings.</p>
+<p>MAUVE is now also available via <a class="reference external" href="https://huggingface.co/spaces/evaluate-metric/mauve">HuggingFace Evaluate</a>.</p>
+<a class="reference internal image-reference" href="_images/mauve.png"><img alt="_images/mauve.png" src="_images/mauve.png" style="width: 100%;" />
+</a>
+<p>The main features are:</p>
+<ul class="simple">
+<li><p>MAUVE with k-means quantization</p></li>
+<li><p>Adaptive selection of k-means hyperparameters</p></li>
+<li><p>Compute MAUVE with text already encoded or use HuggingFace Transformers + PyTorch to compute encodings</p></li>
+<li><p>Implementation of the <cite>Frontier Intergal</cite>, another divergence measure proposed in <a class="reference external" href="https://arxiv.org/pdf/2106.07898.pdf">this NeurIPS 2021 paper</a>.</p></li>
+<li><p>Implementation of Krichevsky-Trofimov smoothing for smoothed divergence estimators (<cite>mauve_star</cite> and <cite>frontier_integral_star</cite>), as proposed in our <a class="reference external" href="https://arxiv.org/pdf/2212.14578.pdf">JMLR 2023 paper</a>.</p></li>
+</ul>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#installation"><span class="std std-ref">Installation</span></a></p></li>
+<li><p><a class="reference internal" href="#quick-start"><span class="std std-ref">Quick Start</span></a></p></li>
+<li><p><a class="reference internal" href="#functionality"><span class="std std-ref">Functionality</span></a></p></li>
+<li><p><a class="reference external" href="mauve.html">API Details</a></p></li>
+<li><p><a class="reference internal" href="#best-practices-for-mauve"><span class="std std-ref">Best Practices for MAUVE</span></a></p></li>
+<li><p><a class="reference internal" href="#contributing"><span class="std std-ref">Contributing</span></a></p></li>
+<li><p><a class="reference internal" href="#authors"><span class="std std-ref">Authors</span></a></p></li>
+<li><p><a class="reference internal" href="#cite"><span class="std std-ref">Cite</span></a></p></li>
+<li><p><a class="reference internal" href="#acknowledgments"><span class="std std-ref">Acknowledgments</span></a></p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>Once you have PyTorch &gt;=1.7, you can grab MAUVE from pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>mauve-text
+</pre></div>
+</div>
+<p>Alternatively, if you would like to edit the package, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:krishnap25/mauve.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mauve
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>The installation command above installs the main requirements, which are <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, <code class="docutils literal notranslate"><span class="pre">faiss</span></code> and <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>.
+In addition, if you wish to use featurization within MAUVE, you need to manually install:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">torch&gt;=1.1.0</span></code>: See <a class="reference external" href="https://pytorch.org/get-started/locally/">Instructions</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transformers&gt;=3.2.0</span></code>: Simply run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">transformers</span></code> after PyTorch has been installed (<a class="reference external" href="https://huggingface.co/transformers/installation.html">Detailed Instructions here</a>)</p></li>
+</ul>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<p>Let p_text and q_text each be a list of strings, where each string is a complete generation (including context). For best practice, MAUVE needs at least a few thousand generations each for p_text and q_text (the paper uses 5000 each). For our demo, we use 100 generations each for fast running time.</p>
+<p>To demonstrate the functionalities of this package on some real data, this repository provides some functionalities to download and use sample data in the <code class="docutils literal notranslate"><span class="pre">./examples</span></code> folder of the MAUVE github repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:krishnap25/mauve.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mauve
+$<span class="w"> </span>python<span class="w"> </span>examples/download_gpt2_dataset.py
+</pre></div>
+</div>
+<p>The data is downloaded into the <code class="docutils literal notranslate"><span class="pre">./data</span></code> folder. We can load the data (100 samples out of the available 5000) in Python as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">examples</span> <span class="kn">import</span> <span class="n">load_gpt2_dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_text</span> <span class="o">=</span> <span class="n">load_gpt2_dataset</span><span class="p">(</span><span class="s1">&#39;data/amazon.valid.jsonl&#39;</span><span class="p">,</span> <span class="n">num_examples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># human</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q_text</span> <span class="o">=</span> <span class="n">load_gpt2_dataset</span><span class="p">(</span><span class="s1">&#39;data/amazon-xl-1542M.valid.jsonl&#39;</span><span class="p">,</span> <span class="n">num_examples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># machine</span>
+</pre></div>
+</div>
+<p>We can now compute MAUVE as follows (note that this requires installation of PyTorch and HuggingFace Transformers, see the section on <a class="reference internal" href="#installation"><span class="std std-ref">Installation</span></a>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mauve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># call mauve.compute_mauve using raw text on GPU 0; each generation is truncated to 256 tokens</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">mauve</span><span class="o">.</span><span class="n">compute_mauve</span><span class="p">(</span><span class="n">p_text</span><span class="o">=</span><span class="n">p_text</span><span class="p">,</span> <span class="n">q_text</span><span class="o">=</span><span class="n">q_text</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_text_length</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">mauve</span><span class="p">)</span> <span class="c1"># prints 0.9917</span>
+</pre></div>
+</div>
+<p>This first downloads GPT-2 large tokenizer and pre-trained model (if you do not have them downloaded already). Even if you have the model offline, it takes it up to 30 seconds to load the model the first time. <code class="docutils literal notranslate"><span class="pre">out</span></code> now contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">out.mauve</span></code>: MAUVE score, a number between 0 and 1 (higher values indicate that Q is closer to P)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out.frontier_integral</span></code>: a scalar divergence measure between P and Q, proposed in <a class="reference external" href="https://arxiv.org/pdf/2106.07898.pdf">this paper</a> (lower values indicate that Q is closer to P)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out.mauve_star</span></code> and <code class="docutils literal notranslate"><span class="pre">out.mauve_frontier_integral_star</span></code>: The corresponding versions with Krichevksy-Trofimov smoothing, as proposed in <a class="reference external" href="https://arxiv.org/pdf/2212.14578.pdf">this JMLR 2023 paper</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out.divergence_curve</span></code>: a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape (m, 2); plot it with matplotlib to view the divergence curve</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out.p_hist</span></code>: a discrete distribution, which is a quantized version of the text distribution p_text</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out.q_hist</span></code>: same as above, but with q_text</p></li>
+</ul>
+</section>
+<section id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Link to this heading">#</a></h2>
+<p>We now describe other ways of using MAUVE.</p>
+<p>For each text (in both p_text and q_text), MAUVE internally uses the terimal hidden state from GPT-2 large as a feature representation. This feature encoding process can be rather slow (~10 mins for 5000 generations at a max length of 1024 on a GPU; but the implementation can be made more efficient, see <a class="reference internal" href="#contributing"><span class="std std-ref">Contributing</span></a>). Alternatively, this package allows you to use cached hidden states directly (this does not require PyTorch and HuggingFace Transformers to be installed):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># call mauve.compute_mauve using features obtained directly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># p_feats and q_feats are `np.ndarray`s of shape (n, dim)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we use a synthetic example here</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_feats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>  <span class="c1"># feature dimension = 1024</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q_feats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">mauve</span><span class="o">.</span><span class="n">compute_mauve</span><span class="p">(</span><span class="n">p_features</span><span class="o">=</span><span class="n">p_feats</span><span class="p">,</span> <span class="n">q_features</span><span class="o">=</span><span class="n">q_feats</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above functionality is helpful when using MAUVE with other modalities, as long as domain-appropriate features are obtained.</p>
+<p>You can also compute MAUVE using the tokenized (BPE) representation using the GPT-2 vocabulary (e.g., obtained from using an explicit call to transformers.GPT2Tokenizer).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># call mauve.compute_mauve using tokens on GPU 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># p_toks, q_toks are each a list of LongTensors of shape [1, length]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we use synthetic examples here</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_toks</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">50257</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q_toks</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">50257</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">mauve</span><span class="o">.</span><span class="n">compute_mauve</span><span class="p">(</span><span class="n">p_tokens</span><span class="o">=</span><span class="n">p_toks</span><span class="p">,</span> <span class="n">q_tokens</span><span class="o">=</span><span class="n">q_toks</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_text_length</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To view the progress messages, pass in the argument verbose=True to mauve.compute_mauve. You can also use different forms as inputs for p and q, e.g., p via p_text and q via q_features.</p>
+<p>Please see the <a class="reference external" href="mauve.html">detailed API here</a>.</p>
+</section>
+<section id="best-practices-for-mauve">
+<h2>Best Practices for MAUVE<a class="headerlink" href="#best-practices-for-mauve" title="Link to this heading">#</a></h2>
+<p>MAUVE is quite different from most metrics in common use, so here are a few guidelines on proper usage of MAUVE:</p>
+<p><strong>Use for relative comparisons rather than absolute evaluation</strong>:</p>
+<ul class="simple">
+<li><p>We find that MAUVE is best suited for relative comparisons while the absolute MAUVE score is less meaningful.</p></li>
+<li><p>For instance, if we wish to find which of model1 and model2 are better at generating the human distribution, we can compare MAUVE(text_model1, text_human) and MAUVE(text_model2, text_human).</p></li>
+<li><p>The absolute number MAUVE(text_model1, text_human) can vary based on the hyperparameters selected, but the relative trends remain the same.</p></li>
+<li><p>One must ensure that the hyperparameters are exactly the same for the MAUVE scores under comparison.</p></li>
+<li><p>Some hyperparameters are described below.</p></li>
+</ul>
+<p><strong>Number of generations</strong>: MAUVE computes the similarity between two distributions. Therefore, each distribution must contain at least a few thousand samples (we use 5000 each). MAUVE with a smaller number of samples is biased towards optimism (that is, MAUVE typically goes down as the number of samples increase) and exhibits a larger standard deviation between runs.</p>
+<p><strong>Number of clusters (discretization/quantization size)</strong>: We take <code class="docutils literal notranslate"><span class="pre">num_buckets</span></code> to be 0.1 * the number of samples.
+The performance of MAUVE is quite robust to this, provided the number of generations is not too small.
+See <a class="reference external" href="https://arxiv.org/pdf/2102.01454.pdf">the paper</a> for details.</p>
+<p><strong>MAUVE is too large or too small</strong>:</p>
+<ul class="simple">
+<li><p>The parameter <code class="docutils literal notranslate"><span class="pre">mauve_scaling_parameter</span></code> controls the absolute value of the MAUVE score, without changing the relative ordering between various methods. The main purpose of this parameter is to help with interpretability.</p></li>
+<li><p>If you find that all your methods get a very high MAUVE score (e.g., 0.995, 0.994), try increasing the value of <code class="docutils literal notranslate"><span class="pre">mauve_scaling_factor</span></code>. (note: this also increases the per-run standard deviation of MAUVE).</p></li>
+<li><p>If you find that all your methods get a very low MAUVE score (e.g. &lt; 0.4), then try decreasing the value of <code class="docutils literal notranslate"><span class="pre">mauve_scaling_factor</span></code>.</p></li>
+</ul>
+<p><strong>MAUVE takes too long to run</strong>:</p>
+<ul class="simple">
+<li><p>In our experiments (5000-10000 samples and <code class="docutils literal notranslate"><span class="pre">num_buckets</span></code> around 500-1000), MAUVE runs in a few minutes, provided the feature encoding has been performed in advance.</p></li>
+<li><p>The feature encoding is the slowest part. Use a batch size as large as allowed for your GPU memory. For instance, with GPT-2 large as a featurizing model, a batch size of 8 works on a GPU with 12GB memory, resulting in a near 8x speedup.</p></li>
+<li><p>To reduce the post-featurization runtime, you can also try reducing the number of clusters using the argument <code class="docutils literal notranslate"><span class="pre">num_buckets</span></code>. The clustering algorithm's run time scales as the square of the number of clusters. Once the number of clusters exceeds 500, the clustering really starts to slow down. In this case, it could be helpful to set the number of clusters to 500 by overriding the default (which is <code class="docutils literal notranslate"><span class="pre">num_data_points</span> <span class="pre">/</span> <span class="pre">10</span></code>, so use this when the number of samples for each of p and q is over 5000).</p></li>
+<li><p>In this case, try reducing the clustering hyperparameters: set <code class="docutils literal notranslate"><span class="pre">kmeans_num_redo</span></code> to 1, and if this does not help, <code class="docutils literal notranslate"><span class="pre">kmeans_max_iter</span></code> to 100. This enables the clustering to run faster at the cost of returning a worse clustering.</p></li>
+</ul>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
+<p>If you find any bugs, please raise an issue on GitHub. If you would like to contribute, please submit a pull request. We encourage and highly value community contributions.</p>
+<p>Some features which would be good to have are:</p>
+<ul class="simple">
+<li><p>feature encoding in HuggingFace Transformers with a TensorFlow backend.</p></li>
+</ul>
+</section>
+<section id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Link to this heading">#</a></h2>
+<p>This package is written and maintained by <a class="reference external" href="krishnap25.github.io">Krishna Pillutla</a>.</p>
+</section>
+<section id="cite">
+<h2>Cite<a class="headerlink" href="#cite" title="Link to this heading">#</a></h2>
+<p>If you find this package useful, or you use it in your research, please cite:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">pillutla</span><span class="o">-</span><span class="n">etal</span><span class="p">:</span><span class="n">mauve</span><span class="p">:</span><span class="n">jmlr2023</span><span class="p">,</span>
+  <span class="n">title</span><span class="o">=</span><span class="p">{{</span><span class="n">MAUVE</span> <span class="n">Scores</span> <span class="k">for</span> <span class="n">Generative</span> <span class="n">Models</span><span class="p">:</span> <span class="n">Theory</span> <span class="ow">and</span> <span class="n">Practice</span><span class="p">}},</span>
+  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Pillutla</span><span class="p">,</span> <span class="n">Krishna</span> <span class="ow">and</span> <span class="n">Liu</span><span class="p">,</span> <span class="n">Lang</span> <span class="ow">and</span> <span class="n">Thickstun</span><span class="p">,</span> <span class="n">John</span> <span class="ow">and</span> <span class="n">Welleck</span><span class="p">,</span> <span class="n">Sean</span> <span class="ow">and</span> <span class="n">Swayamdipta</span><span class="p">,</span> <span class="n">Swabha</span> <span class="ow">and</span> <span class="n">Zellers</span><span class="p">,</span> <span class="n">Rowan</span> <span class="ow">and</span> <span class="n">Oh</span><span class="p">,</span> <span class="n">Sewoong</span> <span class="ow">and</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Yejin</span> <span class="ow">and</span> <span class="n">Harchaoui</span><span class="p">,</span> <span class="n">Zaid</span><span class="p">},</span>
+  <span class="n">journal</span><span class="o">=</span><span class="p">{</span><span class="n">JMLR</span><span class="p">},</span>
+  <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2023</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@inproceedings</span><span class="p">{</span><span class="n">pillutla</span><span class="o">-</span><span class="n">etal</span><span class="p">:</span><span class="n">mauve</span><span class="p">:</span><span class="n">neurips2021</span><span class="p">,</span>
+  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">MAUVE</span><span class="p">:</span> <span class="n">Measuring</span> <span class="n">the</span> <span class="n">Gap</span> <span class="n">Between</span> <span class="n">Neural</span> <span class="n">Text</span> <span class="ow">and</span> <span class="n">Human</span> <span class="n">Text</span> <span class="n">using</span> <span class="n">Divergence</span> <span class="n">Frontiers</span><span class="p">},</span>
+  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Pillutla</span><span class="p">,</span> <span class="n">Krishna</span> <span class="ow">and</span> <span class="n">Swayamdipta</span><span class="p">,</span> <span class="n">Swabha</span> <span class="ow">and</span> <span class="n">Zellers</span><span class="p">,</span> <span class="n">Rowan</span> <span class="ow">and</span> <span class="n">Thickstun</span><span class="p">,</span> <span class="n">John</span> <span class="ow">and</span> <span class="n">Welleck</span><span class="p">,</span> <span class="n">Sean</span> <span class="ow">and</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Yejin</span> <span class="ow">and</span> <span class="n">Harchaoui</span><span class="p">,</span> <span class="n">Zaid</span><span class="p">},</span>
+  <span class="n">booktitle</span> <span class="o">=</span> <span class="p">{</span><span class="n">NeurIPS</span><span class="p">},</span>
+  <span class="n">year</span>      <span class="o">=</span> <span class="p">{</span><span class="mi">2021</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@inproceedings</span><span class="p">{</span><span class="n">liu</span><span class="o">-</span><span class="n">etal</span><span class="p">:</span><span class="n">mauve</span><span class="o">-</span><span class="n">theory</span><span class="p">:</span><span class="n">neurips2021</span><span class="p">,</span>
+  <span class="n">title</span><span class="o">=</span><span class="p">{{</span><span class="n">Divergence</span> <span class="n">Frontiers</span> <span class="k">for</span> <span class="n">Generative</span> <span class="n">Models</span><span class="p">:</span> <span class="n">Sample</span> <span class="n">Complexity</span><span class="p">,</span> <span class="n">Quantization</span> <span class="n">Effects</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Frontier</span> <span class="n">Integrals</span><span class="p">}},</span>
+  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Liu</span><span class="p">,</span> <span class="n">Lang</span> <span class="ow">and</span> <span class="n">Pillutla</span><span class="p">,</span> <span class="n">Krishna</span> <span class="ow">and</span> <span class="n">Welleck</span><span class="p">,</span> <span class="n">Sean</span> <span class="ow">and</span> <span class="n">Oh</span><span class="p">,</span> <span class="n">Sewoong</span> <span class="ow">and</span> <span class="n">Choi</span><span class="p">,</span> <span class="n">Yejin</span> <span class="ow">and</span> <span class="n">Harchaoui</span><span class="p">,</span> <span class="n">Zaid</span><span class="p">},</span>
+  <span class="n">booktitle</span><span class="o">=</span><span class="p">{</span><span class="n">NeurIPS</span><span class="p">},</span>
+  <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2021</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
+<p>This work was supported by NSF DMS-2134012, NSF CCF-2019844, NSF DMS-2023166, the DARPA MCS program through NIWC Pacific (N66001-19-2-4031), the CIFAR &quot;Learning in Machines &amp; Brains&quot; program, a Qualcomm Innovation Fellowship, and faculty research awards.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functionality">Functionality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-mauve">Best Practices for MAUVE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors">Authors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cite">Cite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2021, Authors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

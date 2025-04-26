@@ -1,0 +1,17 @@
+# The user preamble can contain whatever information the user believes would
+# better help Panza write on their behalf. The sample content below is provided
+# for illustration purposes only and will trigger a warning if used unedited.
+
+Name: Jane Jen.
+Education: Final-year IT student at Metropolitan University.
+Expected Graduation: April 2025.
+Student ID: 21126051.
+
+Technical Skills
+Programming Languages: Java (Spring Boot, Spring Data JPA), Python (Flask, Pandas, Matplotlib/Seaborn), SQL (MySQL, PostgreSQL), Tools & Technologies:, Git version control, Docker (basic knowledge), REST APIs, JUnit testing, Linux, AWS (basic knowledge)
+
+Career Interests
+She's applying for various entry-level positions including: Backend Developer, Java Developer, Data Engineer, Business Analyst, Data Analyst, Key Strengths, Strong analytical skills, Database management, API development, Data analysis and visualization, Clear communication, Quick learner, Adaptable, Professional Goals
+
+Based on her applications, she's particularly interested in:FinTech platforms, Cloud infrastructure, Analytics platforms, E-commerce solutions, Enterprise software.
+Jane appears to be a well-rounded IT graduate with both technical and analytical skills, actively seeking entry-level positions across different IT domains.
